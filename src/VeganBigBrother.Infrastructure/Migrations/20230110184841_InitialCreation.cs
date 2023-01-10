@@ -27,6 +27,20 @@ namespace VeganBigBrother.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SensorParts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SensorParts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sensors",
                 columns: table => new
                 {
@@ -48,20 +62,25 @@ namespace VeganBigBrother.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SensorParts",
+                name: "SensorPartParts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    SensorId = table.Column<int>(type: "int", nullable: false)
+                    SensorId = table.Column<int>(type: "int", nullable: false),
+                    SensorPartId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SensorParts", x => x.Id);
+                    table.PrimaryKey("PK_SensorPartParts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SensorParts_Sensors_SensorId",
+                        name: "FK_SensorPartParts_SensorParts_SensorPartId",
+                        column: x => x.SensorPartId,
+                        principalTable: "SensorParts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SensorPartParts_Sensors_SensorId",
                         column: x => x.SensorId,
                         principalTable: "Sensors",
                         principalColumn: "Id",
@@ -97,6 +116,16 @@ namespace VeganBigBrother.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_SensorPartParts_SensorId",
+                table: "SensorPartParts",
+                column: "SensorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SensorPartParts_SensorPartId",
+                table: "SensorPartParts",
+                column: "SensorPartId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SensorPartReadings_SensorID",
                 table: "SensorPartReadings",
                 column: "SensorID");
@@ -107,11 +136,6 @@ namespace VeganBigBrother.Infrastructure.Migrations
                 column: "SensorPartID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SensorParts_SensorId",
-                table: "SensorParts",
-                column: "SensorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Sensors_LocationID",
                 table: "Sensors",
                 column: "LocationID");
@@ -120,6 +144,9 @@ namespace VeganBigBrother.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SensorPartParts");
+
             migrationBuilder.DropTable(
                 name: "SensorPartReadings");
 

@@ -18,9 +18,9 @@ namespace VeganBigBrother.Core.Entities
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public virtual Location Location { get; set; }
 
-        public virtual ICollection<SensorPart> SensorParts { get; set; }
-
         public virtual ICollection<SensorPartReading> SensorPartsReadings { get; set; }
+
+        public virtual ICollection<SensorSensorPart> SensorSensorParts { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

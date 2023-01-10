@@ -84,15 +84,10 @@ namespace VeganBigBrother.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("SensorId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SensorId");
 
                     b.ToTable("SensorParts");
                 });
@@ -126,6 +121,29 @@ namespace VeganBigBrother.Infrastructure.Migrations
                     b.ToTable("SensorPartReadings");
                 });
 
+            modelBuilder.Entity("VeganBigBrother.Core.Entities.SensorSensorPart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("SensorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SensorPartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SensorId");
+
+                    b.HasIndex("SensorPartId");
+
+                    b.ToTable("SensorPartParts");
+                });
+
             modelBuilder.Entity("VeganBigBrother.Core.Entities.Sensor", b =>
                 {
                     b.HasOne("VeganBigBrother.Core.Entities.Location", "Location")
@@ -135,15 +153,6 @@ namespace VeganBigBrother.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("VeganBigBrother.Core.Entities.SensorPart", b =>
-                {
-                    b.HasOne("VeganBigBrother.Core.Entities.Sensor", null)
-                        .WithMany("SensorParts")
-                        .HasForeignKey("SensorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("VeganBigBrother.Core.Entities.SensorPartReading", b =>
@@ -165,6 +174,25 @@ namespace VeganBigBrother.Infrastructure.Migrations
                     b.Navigation("SensorPart");
                 });
 
+            modelBuilder.Entity("VeganBigBrother.Core.Entities.SensorSensorPart", b =>
+                {
+                    b.HasOne("VeganBigBrother.Core.Entities.Sensor", "Sensor")
+                        .WithMany("SensorSensorParts")
+                        .HasForeignKey("SensorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VeganBigBrother.Core.Entities.SensorPart", "SensorPart")
+                        .WithMany("SensorSensorParts")
+                        .HasForeignKey("SensorPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sensor");
+
+                    b.Navigation("SensorPart");
+                });
+
             modelBuilder.Entity("VeganBigBrother.Core.Entities.Location", b =>
                 {
                     b.Navigation("Sensors");
@@ -172,14 +200,16 @@ namespace VeganBigBrother.Infrastructure.Migrations
 
             modelBuilder.Entity("VeganBigBrother.Core.Entities.Sensor", b =>
                 {
-                    b.Navigation("SensorParts");
-
                     b.Navigation("SensorPartsReadings");
+
+                    b.Navigation("SensorSensorParts");
                 });
 
             modelBuilder.Entity("VeganBigBrother.Core.Entities.SensorPart", b =>
                 {
                     b.Navigation("SensorPartReadings");
+
+                    b.Navigation("SensorSensorParts");
                 });
 #pragma warning restore 612, 618
         }

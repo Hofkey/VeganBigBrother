@@ -34,6 +34,7 @@ namespace VeganBigBrother.Infrastructure
         {
             collection.AddScoped<IRepository<Sensor>, GenericRepository<Sensor>>();
             collection.AddScoped<IRepository<SensorPart>, GenericRepository<SensorPart>>();
+            collection.AddScoped<IRepository<SensorSensorPart>, GenericRepository<SensorSensorPart>>();
             collection.AddScoped<IRepository<SensorPartReading>, GenericRepository<SensorPartReading>>();
             collection.AddScoped<IRepository<Location>, GenericRepository<Location>>();
         }

@@ -54,10 +54,10 @@ namespace VeganBigBrother.Infrastructure.Repositories
 #pragma warning restore CS8603 // Possible null reference return.
         }
 
-        public virtual async Task Create(TEntity entity)
+        public virtual async Task<int> Create(TEntity entity)
         {
             await context.Set<TEntity>().AddAsync(entity);
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
 
         public virtual async Task Update(TEntity entity)

@@ -7,6 +7,7 @@ namespace VeganBigBrother.Infrastructure.Database
     {
         public DbSet<Sensor> Sensors { get; set; }
         public DbSet<SensorPart> SensorParts { get; set; }
+        public DbSet<SensorSensorPart> SensorPartParts { get; set; }
         public DbSet<SensorPartReading> SensorPartReadings { get; set; }
         public DbSet<Location> Locations { get; set; }
 

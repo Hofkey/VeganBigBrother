@@ -27,7 +27,7 @@ namespace VeganBigBrother.Core.Interfaces
         /// Create an entity.
         /// </summary>
         /// <param name="entity">Entity to create.</param>
-        Task Create(TEntity entity);
+        Task<int> Create(TEntity entity);
 
         /// <summary>
         /// Update an entity.

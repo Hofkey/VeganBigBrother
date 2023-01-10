@@ -1,4 +1,5 @@
-﻿using VeganBigBrother.Core.Entities;
+﻿using VeganBigBrother.Core.Aggregates;
+using VeganBigBrother.Core.Entities;
 
 namespace VeganBigBrother.Core.Services.SensorServices
 {
@@ -7,8 +8,8 @@ namespace VeganBigBrother.Core.Services.SensorServices
         /// <summary>
         /// Add a new sensor.
         /// </summary>
-        /// <param name="sensor">Sensor to add</param>
-        Task AddSensor(Sensor sensor);
+        /// <param name="sensorAggregate">Sensor to add</param>
+        Task<int> AddSensor(SensorAggregate sensorAggregate);
 
         /// <summary>
         /// Get all readings for a sensor.
@@ -31,20 +32,20 @@ namespace VeganBigBrother.Core.Services.SensorServices
         /// </summary>
         /// <param name="sensorId">Sensor ID</param>
         /// <returns>A sensor.</returns>
-        Sensor GetSensor(int sensorId);
+        SensorAggregate GetSensor(int sensorId);
 
         /// <summary>
         /// Get a list of all the sensors.
         /// </summary>
         /// <returns>List of all the sensors.</returns>
-        List<Sensor> GetSensors();
+        List<SensorAggregate> GetSensors();
 
         /// <summary>
         /// Get list of sensors for a location.
         /// </summary>
         /// <param name="locationId">Location ID</param>
         /// <returns>List of sensors for a location.</returns>
-        List<Sensor> GetSensorsByLocation(int locationId);
+        List<SensorAggregate> GetSensorsByLocation(int locationId);
 
         /// <summary>
         /// Remove a sensor.
