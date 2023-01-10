@@ -1,5 +1,4 @@
-﻿using System.IO.MemoryMappedFiles;
-using VeganBigBrother.Core.Aggregates;
+﻿using VeganBigBrother.Core.Aggregates;
 using VeganBigBrother.Core.Entities;
 using VeganBigBrother.Core.Exceptions;
 using VeganBigBrother.Core.Interfaces;
